@@ -1,24 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Tab = (props) => {
-	{
-		if (props.selected === 'all') {
-			return <div className="tab active-tab">{props.tab}</div>;
-		} else {
-			return (
-				<div
-					className={'tab'}
-					onClick={(props) => {
-						props.selectedTabHandler(props.tab);
-					}}
-				>
-            {props.tab}
-        </div>
-				/* Replace this dummy click handler function with your selectTabHandler function from props
+	return (
+		<div
+			className={props.tab === props.selectedTab ? 'tab active-tab' : 'tab'}
+			onClick={() => {
+				props.selectTabHandler(props.tab);
+				props.filterCards(props.tab);
+			}}
+		>
+			{props.tab.toUpperCase()}
+		</div>
+		/* Replace this dummy click handler function with your selectTabHandler function from props
              you'll need to pass the `tab` in as an argument to this handler. */
-			);
-		}
-	}
+	);
 };
 /* Using your props, determine if the `tab` prop matches the `selectedTab` prop,
       if they match, the className should be: 'tab active-tab',
@@ -26,4 +22,12 @@ const Tab = (props) => {
 
 // Make sure you include PropTypes on your props.
 
+Tab.propTypes = {
+	selectedTab: PropTypes.string,
+	tab: PropTypes.string,
+	selectedTabHandler: PropTypes.func,
+	filterCards: PropTypes.func
+};
+
 export default Tab;
+
